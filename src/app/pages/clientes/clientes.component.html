@@ -1,8 +1,11 @@
 <div class="card border-primary mb-3">
-  <div class="card-header">Clientes</div>
+  <div class="card-header" *ngIf="clientes.length > 0">Clientes</div>
   <div class="card-body">
-    <h5 class="card-title">Listado de Clientes:</h5>
-    <table class="table table-bordered table-striped">
+    <h5 class="card-title" *ngIf="clientes.length > 0">Listado de Clientes:</h5>
+    <table
+      class="table table-bordered table-striped"
+      *ngIf="clientes.length > 0"
+    >
       <thead>
         <tr>
           <th>ID</th>
@@ -10,7 +13,8 @@
           <th>Apellido</th>
           <th>Email</th>
           <th>Fecha</th>
-          <th>Editar / Borrar</th>
+          <th>Editar</th>
+          <th>Borrar</th>
         </tr>
       </thead>
       <tbody>
@@ -21,16 +25,29 @@
           <td>{{ cliente.email }}</td>
           <td>{{ cliente.createdAt }}</td>
           <td>
-            <button type="button" [routerLink]="['/clients/form/', cliente.id]" class="btn btn-primary">
+            <button
+              type="button"
+              [routerLink]="['/clients/form/', cliente.id]"
+              class="btn btn-primary"
+            >
               Editar
             </button>
-            <button type="button" class="btn btn-danger mx-2" (click)="delete(cliente)">
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-danger mx-2"
+              (click)="delete(cliente)"
+            >
               Borrar
             </button>
           </td>
         </tr>
       </tbody>
     </table>
+    <div *ngIf="clientes.length <= 0" class="alert alert-info">
+      No hay clientes registrados
+    </div>
     <div class="my-2 d-flex flex-row justify-content-end">
       <button
         type="button"
